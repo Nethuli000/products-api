@@ -1,0 +1,64 @@
+@startuml
+
+class Product{
+- id : Long
+- name : String
+- price : double
++ product()
++ product(id,name,price)
++ getId()
++ getName()
++ getPrice()
++ setId(id : Long) : void
++ setName(name : String) : void
++ setPrice(price : double) : void
+}
+
+class Customer{
+- id : Long
+- name : String
+- email : String
+- address : String
++ Address()
++ Address(id,name,email,address)
++ getId()
++ getName()
++ getEmail()
++ getAddress()
+}
+
+class Address{
+- street : String
+- city : String
+- postcode : String
++ Address()
++ Address(street,city,postcode)
++ getStreet()
++ getCity()
++ getPostCode()
+}
+
+class ProductService{
+- products : List<Product>
+- nextId : long
++ getProductById : (id : Long) :Optional<Product>
++ addProduct(product :Product) :Product
++ deleteProduct(id : Long) : void
++ findByName (name : String) : List<Product>
+}
+
+class ProductController{
+- productService : ProductService
++ getAllProducts() : List<Product>
++ addProduct (product : Product) :Product
++ deleteProduct(id : Long) : void
+}
+
+' ..> is a dependency: DASHED line, open arrow
+ProductController ..> ProductService
+
+' --> is an association: SOLID line
+ProductService --> Product
+
+@enduml
+
