@@ -8,34 +8,33 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    private List<Product> products = new ArrayList<>();
-    private Long nextId = 1L;
+    private final List<Product> products = new ArrayList<>();
 
     public List<Product> getAllProducts() {
         return products;
     }
 
+    public Optional<Product> getProductById(Long id) {
+        return products.stream()
+                .filter(product -> product.getId().equals(id))
+                .findFirst();
+    }
+
     public Product addProduct(Product product) {
-        product.setId(nextId++);
         products.add(product);
         return product;
     }
 
-    public Optional<Product> getProductById(Long id) {
-        return products.stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst();
-    }
-
     public void deleteProduct(Long id) {
-        products.removeIf(p -> p.getId().equals(id));
+        products.removeIf(product -> product.getId().equals(id));
     }
 
     public List<Product> findByName(String name) {
         return products.stream()
-                .filter(p -> p.getName().contains(name))
+                .filter(product -> product.getName().equalsIgnoreCase(name))
                 .toList();
     }
+
 
 
 }
