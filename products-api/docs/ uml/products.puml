@@ -14,6 +14,21 @@ class Product{
 + setPrice(price : double) : void
 }
 
+class DigitalProduct {
+- downloadUrl : String
+- fileSizeMB : double
++ getDownloadUrl() : String
+}
+class PhysicalProduct {
+- weightKg : double
+- dimensions : String
++ getWeightKg() : double
+}
+
+' <|-- is the inheritance arrow. The PARENT goes on the left.
+Product <|-- DigitalProduct
+Product <|-- PhysicalProduct
+
 class Customer{
 - id : Long
 - name : String
