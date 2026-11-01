@@ -1,6 +1,6 @@
 @startuml
 
-class Product{
+abstract class Product{
 - id : Long
 - name : String
 - price : double
@@ -12,18 +12,35 @@ class Product{
 + setId(id : Long) : void
 + setName(name : String) : void
 + setPrice(price : double) : void
++ {abstract} getSummary() : String
+}
+
+interface Discountable {
++ applyDiscount(rate : double) : void
++ getDiscountedPrice() : double
 }
 
 class DigitalProduct {
 - downloadUrl : String
 - fileSizeMB : double
 + getDownloadUrl() : String
++getSummary() : String
++applyDiscount(rate : double) : void
 }
+
 class PhysicalProduct {
 - weightKg : double
 - dimensions : String
 + getWeightKg() : double
++getSummary() :String
++applyDiscount(rate: double) : void
 }
+
+Product <|-- DigitalProduct
+Product <|-- PhysicalProduct
+
+Discountable <|.. DigitalProduct
+Discountable <|.. PhysicalProduct
 
 ' <|-- is the inheritance arrow. The PARENT goes on the left.
 Product <|-- DigitalProduct
